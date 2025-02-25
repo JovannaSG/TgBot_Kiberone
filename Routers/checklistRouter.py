@@ -9,8 +9,16 @@ from Keyboards.locationsMenuKeyboard import (
 locations_router = Router()
 
 
+@locations_router.message(F.text == "🔍Проверить чек-лист")
+async def start_check_checklist(message: types.Message):
+    await message.answer(
+        text="Выберите локацию, для которой хотите посмотреть чек-лист:",
+        reply_markup=keyboard_locations_menu
+    )
+
+
 @locations_router.message(F.text == "🧹Заполнить чек-лист")
-async def open_locations_menu(message: types.Message):
+async def start_fill_checklist(message: types.Message):
     await message.answer(
         text="Выберите локацию, для которой хотите заполнить чек-лист:",
         reply_markup=keyboard_locations_menu
