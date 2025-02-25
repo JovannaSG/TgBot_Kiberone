@@ -3,7 +3,6 @@ from aiogram import Router, types, F
 from Keyboards.mainMenuKeyboard import keyboard_main_menu
 from Keyboards.casesMenuKeyboard import keyboard_cases_menu
 
-
 cases_router = Router()
 
 

@@ -6,7 +6,6 @@ from Keyboards.locationsMenuKeyboard import (
     keyboard_back_menu
 )
 
-
 locations_router = Router()
 
 
