@@ -1,8 +1,7 @@
 from aiogram import Router, types, F
-from aiogram.filters import Command
 
-from Keyboards.MainMenuKeyboard import keyboard_main_menu
-from Keyboards.CasesMenuKeyboard import keyboard_cases_menu
+from Keyboards.mainMenuKeyboard import keyboard_main_menu
+from Keyboards.casesMenuKeyboard import keyboard_cases_menu
 
 
 cases_router = Router()

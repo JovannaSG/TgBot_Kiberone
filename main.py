@@ -8,6 +8,7 @@ from aiogram.client.default import DefaultBotProperties
 from config import bot_config
 from Routers.mainRouter import main_router
 from Routers.casesRouter import cases_router
+from Routers.checklistRouter import locations_router
 
 
 # We turn on logging so as not to miss important messages
@@ -19,9 +20,8 @@ bot = Bot(
 dp = Dispatcher()
 
 
-async def set_main_menu(bot: Bot):
-    # Creating a list with commands and
-    # their descriptions for the menu button
+async def set_main_commands(bot: Bot):
+    # Creating a list with commands and their descriptions
     main_commands = [
         BotCommand(
             command="/start",
@@ -38,10 +38,11 @@ async def set_main_menu(bot: Bot):
 # start polling and new updates
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
-    dp.startup.register(set_main_menu)
+    dp.startup.register(set_main_commands)
     dp.include_routers(
         main_router,
-        cases_router
+        cases_router,
+        locations_router
     )
     await dp.start_polling(bot)
 
