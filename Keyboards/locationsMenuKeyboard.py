@@ -9,6 +9,8 @@ button_2RW = KeyboardButton(text="2ЖД")
 button_Sun1 = KeyboardButton(text="Солнечный 1")
 # Солнечный 1
 button_Sun2 = KeyboardButton(text="Солнечный 2")
+# НЛО
+button_NLO = KeyboardButton(text="НЛО")
 # Back to main menu
 button_back_to_main_menu = KeyboardButton(text="🔙В главное меню")
 
@@ -19,6 +21,7 @@ keyboard_locations_menu = ReplyKeyboardMarkup(
         [button_2RW],
         [button_Sun1],
         [button_Sun2],
+        [button_NLO],
         [button_back_to_main_menu]
     ],
     resize_keyboard=True

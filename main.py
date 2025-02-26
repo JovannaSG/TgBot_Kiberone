@@ -38,6 +38,7 @@ async def set_main_commands(bot: Bot):
 # start polling and new updates
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
+    # add commands on menu
     dp.startup.register(set_main_commands)
     dp.include_routers(
         main_router,

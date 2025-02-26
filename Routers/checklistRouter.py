@@ -1,5 +1,4 @@
 from aiogram import Router, types, F
-from aiogram.filters import Command
 
 from Keyboards.locationsMenuKeyboard import (
     keyboard_locations_menu,
