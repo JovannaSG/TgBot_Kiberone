@@ -2,9 +2,9 @@ from aiogram import Router, types, F
 from aiogram.filters import Command
 
 from Keyboards.mainMenuKeyboard import keyboard_main_menu
-from Keyboards.locationsMenuKeyboard import keyboard_back_menu
+from Keyboards.locationsMenuKeyboard import keyboard_locations_menu
 
-main_router = Router()
+main_router = Router(name="main_router")
 
 
 @main_router.message(Command("start", prefix="/"))
@@ -26,5 +26,5 @@ async def help_command(message: types.Message):
 async def remind_birthdays(message: types.Message):
     await message.answer(
         text="Напоминаю про др резидентов",
-        reply_markup=keyboard_back_menu
+        reply_markup=keyboard_locations_menu
     )

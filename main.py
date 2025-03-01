@@ -4,11 +4,12 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
 from aiogram.client.default import DefaultBotProperties
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import bot_config
 from Routers.mainRouter import main_router
 from Routers.casesRouter import cases_router
-from Routers.checklistRouter import locations_router
+from Routers.checklistRouter import checklist_router
 
 
 # We turn on logging so as not to miss important messages
@@ -17,6 +18,8 @@ bot = Bot(
     token=bot_config.bot_token.get_secret_value(),
     default=DefaultBotProperties(parse_mode="HTML")
 )
+# storage = MemoryStorage()
+# storage=storage
 dp = Dispatcher()
 
 
@@ -43,7 +46,7 @@ async def main():
     dp.include_routers(
         main_router,
         cases_router,
-        locations_router
+        checklist_router
     )
     await dp.start_polling(bot)
 
