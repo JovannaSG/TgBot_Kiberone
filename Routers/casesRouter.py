@@ -1,5 +1,5 @@
 from aiogram import Router, types, F
-from aiogram.fsm.state import default_state, State
+from aiogram.fsm.state import default_state
 from aiogram.fsm.context import FSMContext
 
 from Keyboards.mainMenuKeyboard import keyboard_main_menu

@@ -1,5 +1,5 @@
 from aiogram import Router, types, F
-from aiogram.filters import StateFilter, Command
+from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state, State, StatesGroup
 
@@ -8,9 +8,7 @@ from Keyboards.locationsMenuKeyboard import (
     keyboard_back_menu
 )
 
-"""
-TODO: Изменить states и подкрутить норм бд
-"""
+
 # locations maybe can be moved in filter
 locations = [b[0].text for b in keyboard_locations_menu.keyboard]
 print(locations)
