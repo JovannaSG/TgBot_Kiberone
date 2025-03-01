@@ -12,7 +12,7 @@ button_Sun2 = KeyboardButton(text="Солнечный 2")
 # НЛО
 button_NLO = KeyboardButton(text="НЛО")
 # Back to main menu
-button_back_to_main_menu = KeyboardButton(text="🔙В главное меню")
+button_back_to_main_menu = KeyboardButton(text="⬅️В главное меню")
 
 # Create keyboard
 keyboard_locations_menu = ReplyKeyboardMarkup(

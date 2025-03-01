@@ -11,7 +11,7 @@ TODO: Сделать тестовую бд на postgresql
 * Бд - postgresql 17, Redis или на крайний случай sqlite
 
 # Ссылка на схемы в drawio
-https://drive.google.com/file/d/1FW2FSkJvyS_OpBSu9UgvZm28nj3fJrHA/view?usp=sharing
+https://app.diagrams.net/#G1FW2FSkJvyS_OpBSu9UgvZm28nj3fJrHA#%7B%22pageId%22%3A%22Woudl7a1q9WzPR4PGWba%22%7D
 
 # Общая схема бота
 ![Общая схема бота](/docs/KO_bot-Preview.drawio.png)

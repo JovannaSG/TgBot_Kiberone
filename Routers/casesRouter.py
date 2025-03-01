@@ -18,7 +18,7 @@ async def open_menu_cases(message: types.Message):
 
 
 # Back to main menu
-@cases_router.message(F.text == "🔙В главное меню")
+@cases_router.message(F.text == "⬅️В главное меню")
 async def back_to_main_menu(message: types.Message, state: FSMContext):
     await message.answer(
         text="Меню действий",
