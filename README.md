@@ -8,7 +8,7 @@ TODO: Сделать тестовую бд на postgresql
 
 # Предполагаемый стек технологий
 * Бот пишется на aiogram 3.17.0
-* Бд - postgresql 17, Redis или на крайний случай sqlite
+* Бд - postgresql 17
 
 # Ссылка на схемы в drawio
 https://app.diagrams.net/#G1FW2FSkJvyS_OpBSu9UgvZm28nj3fJrHA#%7B%22pageId%22%3A%22Woudl7a1q9WzPR4PGWba%22%7D
