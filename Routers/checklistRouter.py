@@ -3,6 +3,10 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state, State, StatesGroup
 
+from sqlalchemy import select
+
+from Database.database import async_session
+from Database.tableModels import checklistTable, foodAmountTable
 from Keyboards.locationsMenuKeyboard import (
     keyboard_locations_menu,
     keyboard_back_menu
@@ -35,6 +39,41 @@ async def start_check_checklist(message: types.Message):
     await message.answer(
         text="Выберите локацию, для которой хотите посмотреть чек-лист:",
         reply_markup=keyboard_locations_menu
+    )
+
+    async with async_session() as session:
+        stmt = select(foodAmountTable.food_amount).where(
+            foodAmountTable.food_amount_id == 1
+        )
+        print(stmt)
+        result = await session.execute(stmt)
+        food_result = result.scalars().all()
+        print(food_result)
+
+    async with async_session() as session:
+        stmt = select(checklistTable)
+        print(stmt)
+        result = await session.execute(stmt)
+        consumables_result = result.scalars().all()
+        print(consumables_result)
+
+    await message.reply(
+        f"Остатки продуктов: {food_result[0]}\n\n" \
+        + "Остатки расходников\n" \
+        + f"Вода: {consumables_result[0].bottles_of_water}\n" \
+        + f"Бумага туалетная: {consumables_result[0].toilet_paper}\n" \
+        + f"Салфетки: {consumables_result[0].napkins}\n" \
+        + f"Антисептик: {consumables_result[0].antiseptic}\n" \
+        + f"Бумага офисная: {consumables_result[0].office_paper}\n" \
+        + f"Мыло: {consumables_result[0].soap}\n" \
+        + f"Тряпки: {consumables_result[0].rags}\n" \
+        + f"Средства для уборки: {consumables_result[0].cleaning_products}\n" \
+        + f"Стаканчики: {consumables_result[0].cups}\n" \
+        + f"Чай: {consumables_result[0].tea_bags}\n" \
+        + f"Карандаши/фломастеры: {consumables_result[0].pens}\n" \
+        + f"Маркеры: {consumables_result[0].markers}\n" \
+        + f"Кофе: {consumables_result[0].cofee}\n" \
+        + f"Батончики для пробника: {consumables_result[0].bars_trial_lesson}" \
     )
 
 

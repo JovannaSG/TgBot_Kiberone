@@ -7,7 +7,6 @@ from aiogram.client.default import DefaultBotProperties
 # from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import config
-from Database.database import cursor
 from Routers.mainRouter import main_router
 from Routers.casesRouter import cases_router
 from Routers.checklistRouter import checklist_router
@@ -41,12 +40,6 @@ async def set_main_commands(bot: Bot):
 
 # start polling and new updates
 async def main():
-    # test connection to db
-    sql_query = "SELECT * FROM photo;"
-    cursor.execute(sql_query)
-    data = cursor.fetchone()
-    print(data)
-
     await bot.delete_webhook(drop_pending_updates=True)
     # add commands on menu
     dp.startup.register(set_main_commands)
