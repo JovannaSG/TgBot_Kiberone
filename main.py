@@ -6,7 +6,8 @@ from aiogram.types import BotCommand
 from aiogram.client.default import DefaultBotProperties
 # from aiogram.fsm.storage.memory import MemoryStorage
 
-from config import bot_config
+from config import config
+from Database.database import connection, cursor
 from Routers.mainRouter import main_router
 from Routers.casesRouter import cases_router
 from Routers.checklistRouter import checklist_router
@@ -15,7 +16,7 @@ from Routers.checklistRouter import checklist_router
 # We turn on logging so as not to miss important messages
 logging.basicConfig(level=logging.INFO)
 bot = Bot(
-    token=bot_config.bot_token.get_secret_value(),
+    token=config.bot_token.get_secret_value(),
     default=DefaultBotProperties(parse_mode="HTML")
 )
 # storage = MemoryStorage()
@@ -40,6 +41,12 @@ async def set_main_commands(bot: Bot):
 
 # start polling and new updates
 async def main():
+    # test connection to db
+    sql_query = "SELECT * FROM photo;"
+    cursor.execute(sql_query)
+    data = cursor.fetchone()
+    print(data)
+
     await bot.delete_webhook(drop_pending_updates=True)
     # add commands on menu
     dp.startup.register(set_main_commands)

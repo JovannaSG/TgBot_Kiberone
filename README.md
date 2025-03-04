@@ -18,3 +18,6 @@ https://app.diagrams.net/#G1FW2FSkJvyS_OpBSu9UgvZm28nj3fJrHA#%7B%22pageId%22%3A%
 
 # Схема базы данных
 ![Схема базы данных](/docs/KO_bot-DB.drawio.png)
+
+# ERD postgre
+![Схема базы данных в pgAdmin4](/docs/ERD_postgres.png)
