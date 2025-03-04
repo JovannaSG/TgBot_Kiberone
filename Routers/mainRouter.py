@@ -1,5 +1,7 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import default_state
 
 from Keyboards.mainMenuKeyboard import keyboard_main_menu
 from Keyboards.locationsMenuKeyboard import keyboard_locations_menu
@@ -28,3 +30,12 @@ async def remind_birthdays(message: types.Message):
         text="Напоминаю про др резидентов",
         reply_markup=keyboard_locations_menu
     )
+
+
+@main_router.message(F.text == "⬅️В главное меню")
+async def back_to_main_menu(message: types.Message, state: FSMContext):
+    await message.answer(
+        text="Меню действий",
+        reply_markup=keyboard_main_menu
+    )
+    await state.set_state(default_state)

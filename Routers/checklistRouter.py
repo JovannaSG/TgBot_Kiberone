@@ -6,18 +6,19 @@ from aiogram.fsm.state import default_state, State, StatesGroup
 from sqlalchemy import select
 
 from Database.database import async_session
-from Database.tableModels import checklistTable, foodAmountTable
+from Database.tableModels import (
+    checklistTable, foodAmountTable,
+    locationTable
+)
 from Keyboards.locationsMenuKeyboard import (
     keyboard_locations_menu,
     keyboard_back_menu
 )
+from Keyboards.mainMenuKeyboard import keyboard_main_menu
 
 
 # locations maybe can be moved in filter
 locations = [b[0].text for b in keyboard_locations_menu.keyboard]
-print(locations)
-date = "25-02-2025"
-time = "20:12"
 
 checklist_router = Router(name="locations_router")
 
@@ -29,33 +30,43 @@ class FSMFillCheklist(StatesGroup):
     location_choice_state = State()
     upload_photo_state = State()
     fill_info_state = State()
+    choose_location_for_checklist = State()
 
 
 @checklist_router.message(
     F.text == "🔍Проверить чек-лист",
     StateFilter(default_state)
 )
-async def start_check_checklist(message: types.Message):
+async def start_check_checklist(message: types.Message, state: FSMContext):
     await message.answer(
         text="Выберите локацию, для которой хотите посмотреть чек-лист:",
         reply_markup=keyboard_locations_menu
     )
+    await state.set_state(FSMFillCheklist.choose_location_for_checklist)
 
+
+@checklist_router.message(
+    F.text.in_(locations),
+    StateFilter(FSMFillCheklist.choose_location_for_checklist)
+)
+async def print_info_checklist(message: types.Message, state: FSMContext):
     async with async_session() as session:
-        stmt = select(foodAmountTable.food_amount).where(
-            foodAmountTable.food_amount_id == 1
+        stmt = (
+            select(foodAmountTable.food_amount)
+            .join(locationTable)
+            .where(locationTable.location_name == message.text)
         )
-        print(stmt)
         result = await session.execute(stmt)
         food_result = result.scalars().all()
-        print(food_result)
 
     async with async_session() as session:
-        stmt = select(checklistTable)
-        print(stmt)
+        stmt = (
+            select(checklistTable)
+            .join(locationTable)
+            .where(locationTable.location_name == message.text)
+        )
         result = await session.execute(stmt)
         consumables_result = result.scalars().all()
-        print(consumables_result)
 
     await message.reply(
         f"Остатки продуктов: {food_result[0]}\n\n" \
@@ -76,13 +87,17 @@ async def start_check_checklist(message: types.Message):
         + f"Батончики для пробника: {consumables_result[0].bars_trial_lesson}" \
     )
 
+    await message.answer(
+        text=f"🧹Последний раз чек-лист для {message.text} " + \
+            f"был заполнен {consumables_result[0].date}",
+        reply_markup=keyboard_main_menu
+    )
+
+    await state.set_state(default_state)
+
 
 @checklist_router.message(F.text == "🧹Заполнить чек-лист")
 async def start_fill_checklist(message: types.Message, state: FSMContext):
-    await message.answer(
-        text=f"🧹Последний раз чек-лист для {message.text} " + \
-            f"был заполнен {date} {time}"
-    )
     await message.answer(
         text="Выберите локацию, для которой хотите заполнить чек-лист:",
         reply_markup=keyboard_locations_menu

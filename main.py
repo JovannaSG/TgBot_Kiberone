@@ -8,7 +8,6 @@ from aiogram.client.default import DefaultBotProperties
 
 from config import config
 from Routers.mainRouter import main_router
-from Routers.casesRouter import cases_router
 from Routers.checklistRouter import checklist_router
 
 
@@ -45,7 +44,6 @@ async def main():
     dp.startup.register(set_main_commands)
     dp.include_routers(
         main_router,
-        cases_router,
         checklist_router
     )
     await dp.start_polling(bot)
