@@ -7,7 +7,7 @@ from aiogram.client.default import DefaultBotProperties
 # from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import config
-from Database.database import connection, cursor
+from Database.database import cursor
 from Routers.mainRouter import main_router
 from Routers.casesRouter import cases_router
 from Routers.checklistRouter import checklist_router
